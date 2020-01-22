@@ -10,7 +10,6 @@
 class Solution {
     private int res = Integer.MIN_VALUE;
     public int maxPathSum(TreeNode root) {
-        if(root == null) return 0;
         maxRootSum(root);
         return res;
     }
