@@ -7,6 +7,27 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+///new 
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        bfs(root, res, 0);
+        return res;
+    }
+
+    private void bfs(TreeNode root, List<List<Integer>> res, int deep) {
+        if (root == null) {
+            return;
+        }
+        if (deep >= res.size()) {
+            res.add(new ArrayList<Integer>());
+        }
+        res.get(deep).add(root.val);
+        bfs(root.left, res, deep+1);
+        bfs(root.right, res, deep+1);
+    }
+}
+///old
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
     	List<List<Integer>> res = new ArrayList<List<Integer>>();
