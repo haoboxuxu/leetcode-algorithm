@@ -27,3 +27,29 @@ class Solution {
         return checkBST(root.left, min, root.val) && checkBST(root.right, root.val, max);
     }
 }
+//very slow
+class Solution {
+    List<Integer> list = new ArrayList<>();
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) return true;
+
+        Stack<TreeNode> stack = new Stack<>();
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            if (!stack.isEmpty()) {
+                root = stack.pop();
+                list.add(root.val);
+                root = root.right;
+            }
+        }
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i) <= list.get(i-1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
