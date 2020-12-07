@@ -1,37 +1,47 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        if(nums.length == 0 || nums == null) return new int[]{-1, -1};
-        int first = findFirst(nums, target);
-        if(first == -1) return new int[]{-1, -1};
-        int last = findLast(nums, target);
-        return new int[]{first, last};
-    }
-    public int findFirst(int[] nums, int target){
-        int start = 0, end = nums.length - 1;
-        while(start + 1 < end){
-          int mid = (end - start) / 2 + start;
-          if(nums[mid] < target){
-            start = mid;
-          }else{
-            end = mid;
-          }
+        int len = nums.length;
+        if (len == 0) {
+            return new int[]{-1, -1};
         }
-        if(nums[start] == target) return start;
-        if(nums[end] == target) return end;
+
+        int firstPos = findFirstPos(nums, target);
+        if (firstPos == -1) {
+            return new int[]{-1, -1};
+        }
+
+        int lastPos = findLastPos(nums, target);
+        return new int[] {firstPos, lastPos};
+    }
+
+    private int findFirstPos(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            int mid = (left + right) >>> 1;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            }else if (nums[mid] == target) {
+                right = mid;
+            }else {
+                right = mid - 1;
+            }
+        }
+        if (nums[left] == target) return left;
         return -1;
     }
-    public int findLast(int[] nums, int target){
-      int start = 0, end = nums.length - 1;
-        while(start + 1 < end){
-          int mid = (end - start) / 2 + start;
-          if(nums[mid] > target){
-            end = mid;
-          }else{
-            start = mid;
-          }
+
+    private int findLastPos(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            int mid = (left + right + 1) >>> 1;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            }else if (nums[mid] == target) {
+                left = mid;
+            }else {
+                right = mid - 1;
+            }
         }
-        if(nums[end] == target) return end;
-        if(nums[start] == target) return start;
-        return -1;
+        return left;
     }
 }
