@@ -1,6 +1,6 @@
 # Leetcode Algorithm
 
- personal leetcode algorithm repository
+ personal Leetcode and Lcof algorithm repository
 
 
 
