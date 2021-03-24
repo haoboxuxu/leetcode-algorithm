@@ -28,19 +28,19 @@ F(N) = F(N - 1) + F(N - 2), 其中 N > 1.
 链接：https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
-```java
+```c++
 class Solution {
-    public int fib(int n) {
+public:
+    int fib(int n) {
         int mod = (int)1e9+7;
-        int first = 0;
-        int second = 1;
-        while (n-- != 0) {
-            int temp = first + second;
-            first = second % mod;
-            second = temp % mod;
+        int a = 0, b = 1;
+        while (n--) {
+            int c = a + b;
+            a = b % mod;
+            b = c % mod;
         }
-        return first % mod;
+        return a % mod;
     }
-}
+};
 ```
 
