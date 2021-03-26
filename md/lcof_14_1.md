@@ -20,19 +20,34 @@
 链接：https://leetcode-cn.com/problems/jian-sheng-zi-lcof
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
-```java
+```c++
+// dp
 class Solution {
-    public int cuttingRope(int n) {
-        if (n == 2 || n == 3) {
-            return n - 1;
+public:
+    int cuttingRope(int n) {
+        vector<int> dp;
+        dp.resize(n+1);
+        dp[2] = 1;
+        // rope len
+        for (int i = 3; i <= n; i++) {
+            // cut len
+            for (int j = 0; j < i; j++) {
+                dp[i] = max(dp[i], max(j * (i - j), j * dp[i-j]));
+            }
         }
-        int res = 1;
-        while (n > 4) {
-            n = n - 3;
-            res = res * 3;
-        }
-        return n * res;
+        return dp[n];
     }
-}
+};
+// math 这是tm人想出来的
+class Solution {
+public:
+    int cuttingRope(int n) {
+        if (n <= 3) return n-1;
+        int a = n/3, b = n %3;
+        if (b == 0) return pow(3, a);
+        if (b == 1) return pow(3, a-1) * 4;
+        return pow(3, a) * 2;
+    }
+};
 ```
 
