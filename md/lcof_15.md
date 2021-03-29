@@ -22,20 +22,30 @@
 链接：https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
-```java
-public class Solution {
-    public int hammingWeight(int n) {
+```c++
+// c++ slow
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
         int res = 0;
         while (n != 0) {
-            res += 1;
-            n = lowbit(n);
+            res += n & 1;
+            n >>= 1;
         }
         return res;
     }
-    private int lowbit(int x) {
-        x &= x - 1;
-        return x;
+};
+// c++ fast
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        int res = 0;
+        while (n != 0) {
+            res += 1;
+            n = n & (n-1);
+        }
+        return res;
     }
-}
+};
 ```
 
