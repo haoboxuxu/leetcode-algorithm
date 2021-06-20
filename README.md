@@ -14,7 +14,7 @@
 | queue          |                |
 | two-pointers   | 11,15,19,42,88 |
 | hash           | 1              |
-| linked list    | 2,19,21        |
+| linked list    | 2,19,21,61,206 |
 | sliding window | 3              |
 | binary sort    | 4              |
 | binary         | 832            |
