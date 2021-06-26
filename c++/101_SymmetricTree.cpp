@@ -1,34 +1,3 @@
-# Symmetric Tree
-
-Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
-
-For example, this binary tree `[1,2,2,3,4,4,3]` is symmetric:
-
-```
-    1
-   / \
-  2   2
- / \ / \
-3  4 4  3
-```
-
- 
-
-But the following `[1,2,2,null,3,null,3]` is not:
-
-```
-    1
-   / \
-  2   2
-   \   \
-   3    3
-```
-
- 
-
-**Follow up:** Solve it both recursively and iteratively.
-
-```c++
 // sol1
 class Solution {
 public:
@@ -78,38 +47,3 @@ public:
         return true;
     }
 };
-```
-
-
-
-``` java
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-class Solution {
-    public boolean isSymmetric(TreeNode root) {
-        if(root == null) {
-        	return true;
-        }
-        else {
-        	return checkLR(root.left, root.right);
-        }
-    }
-    public boolean checkLR(TreeNode l, TreeNode r) {
-        if(l == null && r == null) {
-          return true;
-        }
-        if(l != null && r != null && l.val == r.val) {
-          return checkLR(l.left, r.right) && checkLR(l.right, r.left);
-        }
-        return false;
-		}
-}
-```
-
