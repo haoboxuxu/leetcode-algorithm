@@ -25,6 +25,6 @@
 ##### TODOS
 
 ```
-5,8,70,lcpf11,144Morris,
+5,8,70,lcpf11,144Morris,169Boyer-Moore,
 ```
 
