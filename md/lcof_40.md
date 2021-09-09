@@ -24,6 +24,61 @@
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 ```c++
+//sol2
+class Solution {
+public:
+    vector<int> getLeastNumbers(vector<int>& arr, int k) {
+        quick_sort(arr, 0, (int)arr.size()-1, k);
+        vector<int> res;
+        for (int i = 0; i < k; ++i) {
+            res.push_back(arr[i]);
+        }
+        return res;
+    }
+    
+    void quick_sort(vector<int>& arr, int l, int r, int k) {
+        if (l >= r) return;
+        int i = l-1, j = r+1, x = arr[(l+r)>>1];
+        while (i < j) {
+            do i++; while(arr[i] < x);
+            do j--; while(arr[j] > x);
+            if (i < j) swap(arr[i], arr[j]);
+        }
+        
+        int len = j - l + 1;
+        
+        if (k == len) {
+            return;
+        } else if (k < len) {
+            quick_sort(arr, l, j, k);
+        } else if (k > len) {
+            quick_sort(arr, j+1, r, k-len);
+        }
+    }
+};
+//sol1
+class Solution {
+public:
+    vector<int> getLeastNumbers(vector<int>& arr, int k) {
+        vector<int> v(k, 0);
+        if (k == 0) return v;
+        priority_queue<int> pq;
+        for (int i = 0; i < k; i++) {
+            pq.push(arr[i]);
+        }
+        for (int i = k; i < arr.size(); i++) {
+            if (pq.top() > arr[i]) {
+                pq.pop();
+                pq.push(arr[i]);
+            }
+        }
+        for (int i = 0; i < k; i++) {
+            v[i] = pq.top();
+            pq.pop();
+        }
+        return v;
+    }
+};
 ```
 
 

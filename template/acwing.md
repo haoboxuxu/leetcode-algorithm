@@ -126,3 +126,59 @@ int main(int argc, const char * argv[]) {
 }
 ```
 
+##### AcWing 788. 逆序对的数量
+
+```c++
+#include <iostream>
+using namespace std;
+
+typedef long long LL;
+
+const int N = 1e5+10;
+int nums[N], tmp[N];
+
+LL merge_sort(int l, int r) {
+    if (l >= r) return 0;
+    int mid = l + r >> 1;
+    LL res = merge_sort(l, mid) + merge_sort(mid+1, r);
+    int k = 0, i = l, j = mid+1;
+    while (i <= mid && j <= r) {
+        if (nums[i] <= nums[j]) {
+            tmp[k++] = nums[i++];
+        } else {
+            tmp[k++] = nums[j++];
+            res += mid - i + 1;
+        }
+    }
+    while (i <= mid) tmp[k++] = nums[i++];
+    while (j <= r) tmp[k++] = nums[j++];
+    
+    for (i = l, k = 0; i <= r; i++, k++) {
+        nums[i] = tmp[k];
+    }
+    
+    return res;
+}
+
+int main(int argc, const char * argv[]) {
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++) cin >> nums[i];
+    
+    cout << merge_sort(0, n-1) << endl;
+    return 0;
+}
+```
+
+## 二分
+
+##### AcWing 789. 数的范围
+
+```c++
+```
+
+##### AcWing 790. 数的三次方根
+
+```c++
+```
+
