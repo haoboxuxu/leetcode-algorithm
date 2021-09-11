@@ -1,67 +1,47 @@
-# [剑指 Offer 52. 两个链表的第一个公共节点](https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/)
+# [剑指 Offer 50. 第一个只出现一次的字符](https://leetcode-cn.com/problems/di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof/)
+
+在字符串 s 中找出第一个只出现一次的字符。如果没有，返回一个单空格。 s 只包含小写字母。
+
+示例 1:
+
+输入：s = "abaccdeff"
+输出：'b'
+示例 2:
+
+输入：s = "" 
+输出：' '
+
+
+限制：
+
+0 <= s 的长度 <= 50000
 
 
 
-```java
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) {
- *         val = x;
- *         next = null;
- *     }
- * }
- */
-// 2ms
-public class Solution {
-    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        int lenA = getListLen(headA);
-        int lenB = getListLen(headB);
-        while (lenA > lenB) {
-            headA = headA.next;
-            lenA -= 1;
-        }
-        while (lenB > lenA) {
-            headB = headB.next;
-            lenB -= 1;
-        }
-        while (headA != null && headB != null) {
-            if (headA == headB) {
-                return headA;
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```c++
+class Solution {
+public:
+    char firstUniqChar(string s) {
+        unordered_map<char, int> pos;
+        queue<pair<char, int>> q;
+        int len = (int)s.length();
+        for (int i = 0; i < len; i++) {
+            if (!pos.count(s[i])) {
+                pos[s[i]] = i;
+                q.emplace(s[i], i);
+            } else {
+                pos[s[i]] = -1;
+                while (!q.empty() && pos[q.front().first] == -1) {
+                    q.pop();
+                }
             }
-            headA = headA.next;
-            headB = headB.next;
         }
-        return null;
+        return q.empty() ? ' ' : q.front().first;
     }
-    
-    private int getListLen(ListNode head) {
-        int len = 0;
-        ListNode cur = head;
-        while (cur != null) {
-            len += 1;
-            cur = cur.next;
-        }
-        return len;
-    }
-}
-// 1ms
-public class Solution {
-    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        ListNode posA = headA;
-        ListNode posB = headB;
-
-        if (headA == null && headB == null) {
-            return null;
-        }
-        while (posA != posB) {
-            posA = posA != null ? posA.next : headB;
-            posB = posB != null ? posB.next : headA;
-        }
-        return posA;
-    }
-}
+};
 ```
 
