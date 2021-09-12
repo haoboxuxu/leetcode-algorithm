@@ -175,9 +175,89 @@ int main(int argc, const char * argv[]) {
 ##### AcWing 789. 数的范围
 
 ```c++
+#include <iostream>
+using namespace std;
+
+typedef long long LL;
+
+const int N = 1e5+10;
+int nums[N], n, m;
+
+int main(int argc, const char * argv[]) {
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) scanf("%d", &nums[i]);
+    
+    while (m--) {
+        int x;
+        scanf("%d", &x);
+        
+        int l = 0, r = n-1;
+        while (l < r) {
+            int mid = l + r >> 1;
+            if (nums[mid] >= x) r = mid;
+            else l = mid + 1;
+        }
+        
+        if (nums[l] != x) {
+            cout << "-1 -1" << endl;
+        } else {
+            cout << l << " ";
+            l = 0, r = n-1;
+            while (l < r) {
+                int mid = l + r + 1 >> 1;
+                if (nums[mid] <= x) l = mid;
+                else r = mid - 1;
+            }
+            
+            cout << l << endl;
+        }
+    }
+    return 0;
+}
 ```
 
 ##### AcWing 790. 数的三次方根
+
+```c++
+#include <iostream>
+using namespace std;
+
+typedef long long LL;
+
+const int N = 1e5+10;
+
+int main(int argc, const char * argv[]) {
+    double x;
+    cin >> x;
+    double l = -10000, r = 10000;
+    while (r - l > 1e-8) {
+        double mid = (l+r)/2;
+        if (mid * mid * mid >= x) r = mid;
+        else l = mid;
+    }
+    printf("%lf\n", l);
+    return 0;
+}
+```
+
+## 高精度
+
+##### AcWing 791. 高精度加法
+
+```c++
+```
+
+##### AcWing 792. 高精度减法
+
+```c++
+```
+
+##### AcWing 793. 高精度乘法
+
+```c++
+```
+
+##### AcWing 794. 高精度除法
 
 ```c++
 ```
