@@ -19,6 +19,7 @@
 | binary sort    | 4                                     |
 | binary         | 832                                   |
 | stack          | 20,42                                 |
+| stock          | 121,122,123,188,309                   |
 
 
 

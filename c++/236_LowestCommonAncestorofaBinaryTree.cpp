@@ -1,18 +1,15 @@
 class Solution {
 public:
-    TreeNode* res;
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        dfs(root, p, q);
-        return res;
-    }
-    
-    bool dfs(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if (root == nullptr) return false;
-        bool lson = dfs(root->left, p, q);
-        bool rson = dfs(root->right, p, q);
-        if ((lson && rson) || ((lson || rson) && (root == p || root == q))) {
-            res = root;
-        }
-        return lson || rson || (root == p || root == q);
+        if (!root || !p || !q) return nullptr;
+        
+        if (root->val == p->val || root->val == q->val) return root;
+        
+        TreeNode* left = lowestCommonAncestor(root->left, p, q);
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
+        if (left && right) return root;
+        if (left) return left;
+        else return right;
     }
 };
+
