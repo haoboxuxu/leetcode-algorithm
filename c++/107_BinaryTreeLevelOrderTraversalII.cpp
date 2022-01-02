@@ -1,39 +1,10 @@
-# Binary Tree Zigzag Level Order Traversal
-
-Given a binary tree, return the *zigzag level order* traversal of its nodes' values. (ie, from left to right, then right to left for the next level and alternate between).
-
-For example:
-Given binary tree `[3,9,20,null,null,15,7]`,
-
-```
-    3
-   / \
-  9  20
-    /  \
-   15   7
-```
-
-
-
-return its zigzag level order traversal as:
-
-```
-[
-  [3],
-  [20,9],
-  [15,7]
-]
-```
-
-```c++
 class Solution {
 public:
-    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
         vector<vector<int>> res;
         if (root == nullptr) return res;
         queue<TreeNode*> q;
         q.push(root);
-        int cnt = 0;
         while (!q.empty()) {
             int size = q.size();
             vector<int> level;
@@ -44,11 +15,9 @@ public:
                 if (node->left) q.push(node->left);
                 if (node->right) q.push(node->right);
             }
-            if (++cnt % 2 == 0) reverse(level.begin(), level.end());
             res.push_back(level);
         }
+        reverse(res.begin(), res.end());
         return res;
     }
 };
-```
-
