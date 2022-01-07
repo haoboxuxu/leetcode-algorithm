@@ -1,28 +1,27 @@
-// sol1
+//sol1
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        ListNode* prev = nullptr;
-        ListNode* cur = head;
-        while (cur != nullptr) {
-            ListNode* next = cur->next;
-            cur->next = prev;
-            prev = cur;
-            cur = next;
-        }
-        return prev;
+    	if (head == nullptr) return nullptr;
+    	auto a = head, b = head->next;
+    	while (b) {
+    		auto nxt = b->next;
+    		b->next = a;
+    		a = b;
+    		b = nxt;
+    	}
+    	head->next = nullptr;
+    	return a;
     }
 };
-// sol2
+//sol2
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        if (head == nullptr || head->next == nullptr) {
-            return head;
-        }
-        ListNode* newHead = reverseList(head->next);
-        head->next->next = head;
-        head->next = nullptr;
-        return newHead;
+    	if (head == nullptr || head->next == nullptr) return head;
+    	auto tail = reverseList(head->next);
+    	head->next->next = head;
+    	head->next = nullptr;
+    	return tail;
     }
 };

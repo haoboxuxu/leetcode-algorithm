@@ -26,6 +26,6 @@
 ##### TODOS
 
 ```
-5,8,70,lcpf11,144Morris,169Boyer-Moore,UnionFind200,99
+5,8,70,lcpf11,144Morris,UnionFind200,99
 ```
 
