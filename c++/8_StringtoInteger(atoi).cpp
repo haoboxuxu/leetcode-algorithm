@@ -1,32 +1,23 @@
 class Solution {
 public:
     int myAtoi(string s) {
-        if (s.length() == 0) return 0;
-        int res = 0;
+        int k = 0;
+        while (k < s.size() && s[k] == ' ') k++;
+        if (k == s.size()) return 0;
+        
         bool flag = true;
+        if (s[k] == '-') flag = false, k++;
+        else if (s[k] == '+') k++;
         
-        int i = 0;
-        while (s[i] == ' ' && (i+1) < s.length()) {
-            i++;
+        int res = 0;
+        while (k < s.size() && s[k] >= '0' && s[k] <= '9') {
+            int x = s[k] - '0';
+            if (flag && res > (INT_MAX - x) / 10) return INT_MAX;
+            if (!flag && -res < (INT_MIN + x) / 10) return INT_MIN;
+            if (-res * 10 - x == INT_MIN) return INT_MIN;
+            res = res * 10 + x;
+            k++;
         }
-        
-        if (s[i] == '-') flag = false;
-        if (s[i] == '-' || s[i] == '+') i++;
-        
-        while (i < s.length() && isDigit(s[i])) {
-            int r = s[i] - '0';
-            if (res > INT_MAX / 10 || (res == INT_MAX / 10 && r > 7)) {
-                return flag ? INT_MAX : INT_MIN;
-            }
-            res = res * 10 + r;
-            i++;
-        }
-        
         return flag ? res : -res;
-    }
-    
-    bool isDigit(char c) {
-        if (c >= '0' && c <= '9') return true;
-        else return false;
     }
 };

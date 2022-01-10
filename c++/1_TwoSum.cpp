@@ -1,13 +1,11 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        unordered_map<int, int> hashtable;
+        unordered_map<int, int> mp;
         for (int i = 0; i < nums.size(); i++) {
-            auto it = hashtable.find(target - nums[i]);
-            if (it != hashtable.end()) {
-                return {it->second, i};
-            }
-            hashtable[nums[i]] = i;
+            int r = target - nums[i];
+            if (mp.count(r)) return {mp[r], i};
+            mp[nums[i]] = i;
         }
         return {};
     }
