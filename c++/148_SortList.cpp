@@ -1,44 +1,33 @@
 class Solution {
 public:
     ListNode* sortList(ListNode* head) {
-        return sorting(head, nullptr);
-    }
-    
-    ListNode* sorting(ListNode* head, ListNode* tail) {
-        if (head == nullptr) return head;
-        if (head->next == tail) {
-            head->next = nullptr;
-            return head;
+        int n = 0;
+        for (auto p = head; p; p = p->next) n++;
+        
+        for (int i = 1; i < n; i *= 2) {
+            auto dummy = new ListNode(-1), cur = dummy;
+            for (int j = 1; j <= n; j += i * 2) {
+                auto l1 = head, l2 = l1;
+                for (int k = 0; k < i && l2; k++) l2 = l2->next;
+                
+                auto o = l2;
+                for (int k = 0; k < i && o; k++) o = o->next;
+                
+                int l = 0, r = 0;
+                while (l < i && r < i && l1 && l2) {
+                    if (l1->val <= l2->val) cur = cur->next = l1, l1 = l1->next, l++;
+                    else cur = cur->next = l2, l2 = l2->next, r++;
+                }
+                
+                while (l < i && l1) cur = cur->next = l1, l1 = l1->next, l++;
+                while (r < i && l2) cur = cur->next = l2, l2 = l2->next, r++;
+                head = o;
+            }
+            
+            cur->next = nullptr;
+            head = dummy->next;
         }
         
-        ListNode* slow = head, *fast = head;
-        while (fast != tail) {
-            slow = slow->next;
-            fast = fast->next;
-            if (fast != tail) {
-                fast = fast->next;
-            }
-        }
-        
-        ListNode* mid = slow;
-        return merge(sorting(head, mid), sorting(mid, tail));
-    }
-    
-    ListNode* merge(ListNode* head1, ListNode* head2) {
-        ListNode* dummy = new ListNode(0);
-        ListNode* temp = dummy, *temp1 = head1, *temp2 = head2;
-        while (temp1 != nullptr && temp2 != nullptr) {
-            if (temp1->val <= temp2->val) {
-                temp->next = temp1;
-                temp1 = temp1->next;
-            } else {
-                temp->next = temp2;
-                temp2 = temp2->next;
-            }
-            temp = temp->next;
-        }
-        if (temp1 != nullptr) temp->next = temp1;
-        if (temp2 != nullptr) temp->next = temp2;
-        return dummy->next;
+        return head;
     }
 };

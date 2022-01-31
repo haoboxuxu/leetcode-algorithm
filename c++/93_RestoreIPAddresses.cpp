@@ -1,50 +1,26 @@
 class Solution {
-private:
-    vector<string> res;
-    vector<int> segments;
-    static constexpr int COUNT = 4;
-    
 public:
+    vector<string> res;
     vector<string> restoreIpAddresses(string s) {
-        segments.resize(COUNT);
-        dfs(s, 0, 0);
+        dfs(s, 0, 0, "");
         return res;
     }
     
-    void dfs(const string& s, int segID, int segStart) {
-        if (segID == COUNT) {
-            if (segStart == s.size()) {
-                string ipaddr;
-                for (int i = 0; i < COUNT; i++) {
-                    ipaddr += to_string(segments[i]);
-                    if (i != COUNT-1) {
-                        ipaddr += ".";
-                    }
-                }
-                res.push_back(ipaddr);
-                //res.push_back(move(ipaddr));
+    void dfs(string& s, int u, int k, string path) {
+        if (u == s.size()) {
+            if (k == 4) {
+                path.pop_back();
+                res.push_back(path);
             }
             return;
         }
+        if (k == 4) return;
         
-        if (segStart == s.size()) {
-            return;
-        }
-        
-        if (s[segStart] == '0') {
-            segments[segID] = 0;
-            dfs(s, segID+1, segStart+1);
-        }
-        
-        int addr = 0;
-        for (int segEnd = segStart; segEnd < s.size(); segEnd++) {
-            addr = addr*10 + (s[segEnd] - '0');
-            if (addr > 0 && addr <= 0xFF) {
-                segments[segID] = addr;
-                dfs(s, segID+1, segEnd+1);
-            } else {
-                break;
-            }
+        for (int i = u, num = 0; i < s.size(); i++) {
+            if (i > u && s[u] == '0') break;
+            num = num * 10 + s[i] - '0';
+            if (num <= 255) dfs(s, i+1, k+1, path + to_string(num) + '.');
+            else break;
         }
     }
 };

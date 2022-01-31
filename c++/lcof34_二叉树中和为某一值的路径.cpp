@@ -2,18 +2,20 @@ class Solution {
 public:
     vector<vector<int>> res;
     vector<int> path;
-    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
-        dfs(root, targetSum);
+    vector<vector<int>> pathSum(TreeNode* root, int target) {
+        dfs(root, target);
         return res;
     }
-    
-    void dfs(TreeNode* root, int targetSum) {
+
+    void dfs(TreeNode* root, int target) {
         if (root == nullptr) return;
+        target -= root->val;
         path.push_back(root->val);
-        targetSum -= root->val;
-        if (root->left == nullptr && root->right == nullptr && targetSum == 0) res.push_back(path);
-        dfs(root->left, targetSum);
-        dfs(root->right, targetSum);
+        if (target == 0 && !root->left && !root->right) {
+            res.push_back(path);
+        }
+        dfs(root->left, target);
+        dfs(root->right, target);
         path.pop_back();
     }
 };

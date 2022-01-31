@@ -2,19 +2,14 @@ class Solution {
 public:
     vector<vector<int>> findContinuousSequence(int target) {
         vector<vector<int>> res;
-        vector<int> tmp;
-        for (int l = 1, r = 2; l < r;) {
-            int sum = (l+r) * (r-l+1) / 2;
-            if (sum == target) {
-                tmp.clear();
-                for (int i = l; i <= r; i++) tmp.push_back(i);
-                res.push_back(tmp);
-                l++;
-            } else if (sum < target) {
-                r++;
-            } else {
-                l++;
+        for (int i = 1, j = 1, sum = 1; i <= target; i++) {
+            while (sum < target) j++, sum += j;
+            if (sum == target && j > i) {
+                vector<int> path;
+                for (int k = i; k <= j; k++) path.push_back(k);
+                res.push_back(path);
             }
+            sum -= i;
         }
         return res;
     }

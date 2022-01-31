@@ -1,34 +1,34 @@
 class Solution {
 public:
-    vector<vector<bool>> dp;
     vector<vector<string>> res;
-    vector<string> tmp;
-    int len;
+    vector<string> path;
+    vector<vector<bool>> dp;
     vector<vector<string>> partition(string s) {
-        len = s.length();
-        dp.assign(len, vector<bool>(len, true));
-        
-        for (int i = len-1; i >= 0; i--) {
-            for (int j = i+1; j < len; j++) {
-                dp[i][j] = (s[i] == s[j]) && dp[i + 1][j - 1];
+        int n = s.size();
+        dp = vector<vector<bool>>(n, vector<bool>(n));
+        for (int j = 0; j < n; j++) {
+            for (int i = 0; i <= j; i++) {
+                if (i == j) {
+                    dp[i][j] = true;
+                } else if (s[i] == s[j]) {
+                    if (i + 1 > j - 1 || dp[i + 1][j - 1]) dp[i][j] = true;
+                }
             }
         }
-        
         dfs(s, 0);
-        
         return res;
     }
-    
-    void dfs(const string& s, int i) {
-        if (i == len) {
-            res.push_back(tmp);
+
+    void dfs(string& s, int u) {
+        if (u == s.size()) {
+            res.push_back(path);
             return;
         }
-        for (int j = i; j < len; j++) {
-            if (dp[i][j]) {
-                tmp.push_back(s.substr(i, j-i+1));
-                dfs(s, j+1);
-                tmp.pop_back();
+        for (int i = u; i < s.size(); i++) {
+            if (dp[u][i]) {
+                path.push_back(s.substr(u, i - u + 1));
+                dfs(s, i+1);
+                path.pop_back();
             }
         }
     }

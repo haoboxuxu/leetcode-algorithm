@@ -2,14 +2,9 @@ class Solution {
 public:
     string replaceSpace(string s) {
         string res;
-        for (auto& c: s) {
-            if (c == ' ') {
-                res.push_back('%');
-                res.push_back('2');
-                res.push_back('0');
-            } else {
-                res.push_back(c);
-            }
+        for (auto c : s) {
+            if (c == ' ') res += "%20";
+            else res += c;
         }
         return res;
     }

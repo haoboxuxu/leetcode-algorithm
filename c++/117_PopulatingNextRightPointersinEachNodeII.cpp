@@ -22,17 +22,10 @@ public:
         if (!root) return root;
         auto cur = root;
         while (cur) {
-            auto head = new Node(-1);
-            auto tail = head;
-            for (auto p = cur; p != nullptr; p = p->next) {
-                if (p->left) {
-                    tail->next = p->left;
-                    tail = tail->next;
-                }
-                if (p->right) {
-                    tail->next = p->right;
-                    tail = tail->next;
-                }
+            auto head = new Node(-1), tail = head;
+            for (auto p = cur; p; p = p->next) {
+                if (p->left) tail = tail->next = p->left;
+                if (p->right) tail = tail->next = p->right;
             }
             cur = head->next;
         }

@@ -1,59 +1,15 @@
-//sol1
 class Solution {
 public:
     bool isPalindrome(string s) {
-        string ss;
-        for (char c : s) {
-            if (isalnum(c)) {
-                ss += tolower(c);
-            }
+        for (int i = 0, j = s.size() - 1; i < j; i++, j--) {
+            while (i < j && !check(s[i])) i++;
+            while (i < j && !check(s[j])) j--;
+            if (i < j && tolower(s[i]) != tolower(s[j])) return false;
         }
-        string ss_rev(ss.rbegin(), ss.rend());
-        return  ss == ss_rev;
-    }
-};
-//sol2
-class Solution {
-public:
-    bool isPalindrome(string s) {
-        string ss;
-        for (char c : s) {
-            if (isalnum(c)) {
-                ss += tolower(c);
-            }
-        }
-        int n = (int)ss.size();
-        int left = 0, right = n - 1;
-        while (left < right) {
-            if (ss[left] != ss[right]) return false;
-            left++;
-            right--;
-        }
-        
         return true;
     }
-};
-//sol3
-class Solution {
-public:
-    bool isPalindrome(string s) {
-        int n = (int)s.size();
-        int left = 0, right = n - 1;
-        while (left < right) {
-            while (left < right && !isalnum(s[left])) {
-                left++;
-            }
-            while (left < right && !isalnum(s[right])) {
-                right--;
-            }
-            if (left < right) {
-                if (tolower(s[left]) != tolower(s[right])) {
-                    return false;
-                }
-                left++;
-                right--;
-            }
-        }
-        return true;
+
+    bool check(char c) {
+        return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c >= '0' && c <= '9';
     }
 };

@@ -1,38 +1,16 @@
-// sol1
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        unordered_set<ListNode*> st;
-        while (head != nullptr) {
-            if (st.count(head)) {
-                return head;
-            }
-            st.insert(head);
-            head = head->next;
-        }
-        return nullptr;
-    }
-};
-// sol2
-class Solution {
-public:
-    ListNode *detectCycle(ListNode *head) {
-        ListNode *slow = head, *fast = head;
-        
-        while (fast != nullptr) {
-            slow = slow->next;
-            if (fast->next == nullptr) {
-                return nullptr;
-            }
-            fast = fast->next->next;
-            
-            if (fast == slow) {
-                ListNode *p = head;
-                while (p != slow) {
-                    slow = slow->next;
-                    p = p->next;
-                }
-                return p;
+        if (!head || !head->next) return nullptr;
+        auto s = head, f = head->next;
+        while (f) {
+            s = s->next, f = f->next;
+            if (f == nullptr) return nullptr;
+            f = f->next;
+            if (s == f) {
+                s = head, f = f->next;
+                while (s != f) s = s->next, f = f->next;
+                return s;
             }
         }
         return nullptr;

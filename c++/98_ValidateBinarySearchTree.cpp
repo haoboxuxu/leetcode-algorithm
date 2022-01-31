@@ -1,44 +1,28 @@
 // sol1
-#define ll long long
 class Solution {
 public:
+#define ll long long
     bool isValidBST(TreeNode* root) {
-        return helper(root, LONG_MIN, LONG_MAX);
+        return dfs(root, LONG_MIN, LONG_MAX);
     }
     
-    bool helper(TreeNode* root, ll low, ll up) {
-        if (root == nullptr) {
-            return true;
-        }
-        if (root->val <= low || root->val >= up) {
-            return false;
-        }
-        return helper(root->left, low, root->val) && helper(root->right, root->val, up);
+    bool dfs(TreeNode* root, ll l, ll r) {
+        if (root == nullptr) return true;
+        if (root->val <= l || root->val >= r) return false;
+        return dfs(root->left, l, root->val) && dfs(root->right, root->val, r);
     }
 };
 // sol2
-#define ll long long
 class Solution {
 public:
+    long long last = -1e10;
     bool isValidBST(TreeNode* root) {
-        stack<TreeNode*> stk;
-        ll prev = (ll)INT_MIN - 1;
-        
-        while (!stk.empty() || root != nullptr) {
-            while (root != nullptr) {
-                stk.push(root);
-                root = root->left;
-            }
-            root = stk.top();
-            stk.pop();
-            if (root->val <= prev) {
-                return false;
-            }
-            prev = root->val;
-            root = root->right;
+        if (root) {
+            if (!isValidBST(root->left)) return false;
+            if (last >= root->val) return false;
+            last = root->val;
+            if (!isValidBST(root->right)) return false;
         }
         return true;
     }
 };
-
-

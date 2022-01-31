@@ -1,24 +1,11 @@
-// c++ slow
 class Solution {
 public:
-    int hammingWeight(uint32_t n) {
-        int res = 0;
-        while (n != 0) {
-            res += n & 1;
-            n >>= 1;
-        }
-        return res;
+    uint32_t lowbit(uint32_t x) {
+        return x & -x;
     }
-};
-// c++ fast
-class Solution {
-public:
-    int hammingWeight(uint32_t n) {
+    int hammingWeight(uint32_t n) {   
         int res = 0;
-        while (n != 0) {
-            res += 1;
-            n = n & (n-1);
-        }
+        while (n) n -= lowbit(n), res++;
         return res;
     }
 };
