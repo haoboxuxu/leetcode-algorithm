@@ -42,20 +42,18 @@
 ```c++
 class Solution {
 public:
+    bool res;
     bool isBalanced(TreeNode* root) {
-        if (root == nullptr) {
-            return true;
-        }
-        else {
-            return abs(getHeight(root->left) - getHeight(root->right)) <= 1
-                   && isBalanced(root->left)
-                   && isBalanced(root->right);
-        }
+        res = true;
+        height(root);
+        return res;
     }
-    
-    int getHeight(TreeNode* root) {
-        if (root == nullptr) return 0;
-        else return max(getHeight(root->left), getHeight(root->right)) + 1;
+
+    int height(TreeNode* root) {
+        if (!root) return 0;
+        int lh = height(root->left), rh = height(root->right);
+        if (abs(lh - rh) > 1) res = false;
+        return max(lh ,rh) + 1;
     }
 };
 ```

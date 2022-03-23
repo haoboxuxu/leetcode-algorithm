@@ -19,16 +19,16 @@ a, b 均可能是负数或 0
 链接：https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
-```java
+```c++
 class Solution {
-    public int add(int a, int b) {
-        while (b != 0) {
-            int c = (a & b) << 1; //进位
-            a ^= b; //非进位和
-            b = c; //b = 进位
+public:
+    int add(int a, int b) {
+        while (b) {
+            int sum = a ^ b;
+            int carry = (unsigned int)(a & b) << 1;
+            a = sum, b = carry;
         }
         return a;
     }
-}
+};
 ```
-

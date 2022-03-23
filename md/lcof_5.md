@@ -19,44 +19,16 @@
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 ```java
-//c++
 class Solution {
 public:
     string replaceSpace(string s) {
         string res;
-        for (auto& c: s) {
-            if (c == ' ') {
-                res.push_back('%');
-                res.push_back('2');
-                res.push_back('0');
-            } else {
-                res.push_back(c);
-            }
+        for (auto c : s) {
+            if (c == ' ') res += "%20";
+            else res += c;
         }
         return res;
     }
 };
-//java
-class Solution {
-    public String replaceSpace(String s) {
-        int len = s.length();
-        char[] arr = new char[len*3];
-        int index = 0;
-        
-        for (int i = 0; i < len; i++) {
-            char c = s.charAt(i);
-            if (c == ' ') {
-                arr[index++] = '%';
-                arr[index++] = '2';
-                arr[index++] = '0';
-            }else {
-                arr[index++] = c;
-            }
-        }
-        
-        String res = new String(arr, 0, index);
-        return res;
-    }
-}
 ```
 

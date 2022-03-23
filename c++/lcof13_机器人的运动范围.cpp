@@ -1,28 +1,31 @@
 class Solution {
 public:
+    vector<vector<bool>> vis;
+    int m, n, k, res;
+    int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
     int movingCount(int m, int n, int k) {
-        vector<vector<int>> vis(m, vector<int>(n, 0));
-        int res = 1;
-        vis[0][0] = 1;
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if ((i == 0 && j == 0) || getSum(i) + getSum(j) > k) {
-                    continue;
-                }
-                if (i - 1 >= 0) vis[i][j] |= vis[i-1][j];
-                if (j - 1 >= 0) vis[i][j] |= vis[i][j-1];
-                res += vis[i][j];
-            }
-        }
+        vis = vector<vector<bool>>(m, vector<bool>(n));
+        this->m = m, this->n = n, this->k = k, res = 0;
+        dfs(0, 0);
         return res;
     }
-private:
+
+    void dfs(int x, int y) {
+        vis[x][y] = true;
+        res += 1;
+        for (int i = 0; i < 4; i++) {
+            int a = x + dx[i], b = y + dy[i];
+            if (a < 0 || a >= m || b < 0 || b >= n || vis[a][b] || getSum(a) + getSum(b) > k) continue;
+            dfs(a, b);
+        }
+    }
+
     int getSum(int x) {
-        int res = 0;
-        while (x != 0) {
-            res += x % 10;
+        int sum = 0;
+        while (x) {
+            sum += x % 10;
             x /= 10;
         }
-        return res;
+        return sum;
     }
 };

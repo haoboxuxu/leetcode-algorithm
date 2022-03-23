@@ -1,17 +1,13 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        unordered_map<char, char> s2t;
-        unordered_map<char, char> t2s;
-        
-        int len = (int)s.size();
-        for (int i = 0; i < len; i++) {
-            char sc = s[i], tc = t[i];
-            if ((s2t.count(sc) && s2t[sc] != tc) || (t2s.count(tc) && t2s[tc] != sc)) {
-                return false;
-            }
-            s2t[sc] = tc;
-            t2s[tc] = sc;
+        unordered_map<char, char> st, ts;
+        for (int i = 0; i < s.size(); i++) {
+            char a = s[i], b = t[i];
+            if (st.count(a) && st[a] != b) return false;
+            st[a] = b;
+            if (ts.count(b) && ts[b] != a) return false;
+            ts[b] = a;
         }
         return true;
     }

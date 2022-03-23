@@ -1,16 +1,15 @@
 class Solution {
 public:
-    double myPow(double x, int n) {
+    double myPow(double x, int _n) {
         typedef long long LL;
-        bool is_minus = n < 0;
-        double res = 1.0;
-        
-        for (LL k = abs(LL(n)); k; k >>= 1) {
-            if (k & 1) res *= x;
+        LL n = abs(_n);
+        bool flag = _n < 0;
+        double res = 1;
+        while (n) {
+            if (n & 1) res *= x;
+            n >>= 1;
             x *= x;
         }
-        
-        if (is_minus) res = 1.0 / res;
-        return res;
+        return flag ? 1.0 / res : res;
     }
 };

@@ -25,36 +25,26 @@
 
 ```java
 class Solution {
-    int[] dx = new int[]{0, 1, 0, -1};
-    int[] dy = new int[]{1, 0, -1, 0};
-    public int[] spiralOrder(int[][] matrix) {
-        if (matrix == null || matrix.length == 0) {
-            return new int[0];
-        }
-        int n = matrix.length;
-        int m = matrix[0].length;
-        boolean[][] vis = new boolean[n][m];
-        int[] res = new int[n * m];
-        int index = 0;
-        
-        int x = 0, y = 0, d = 0;
-        for (int i = 1; i <= n * m; i++) {
-            int nx = x + dx[d];
-            int ny = y + dy[d];
-            
-            if (nx < 0 || nx >= n || ny < 0 || ny >= m || vis[nx][ny]) {
-                d = (d + 1) % 4;
-                nx = x + dx[d];
-                ny = y + dy[d];
-            }
-            
-            res[index++] = matrix[x][y];
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
+        vector<int> res;
+        int n = matrix.size();
+        if (!n) return res;
+        int m = matrix[0].size();
+        vector<vector<bool>> vis(n, vector<bool>(m));
+        for (int i = 0, x = 0, y = 0, d = 0; i < n * m; i++) {
+            res.push_back(matrix[x][y]);
             vis[x][y] = true;
-            x = nx;
-            y = ny;
+            int a = x + dx[d], b = y + dy[d];
+            if (a < 0 || a >= n || b < 0 || b >= m || vis[a][b]) {
+                d = (d + 1) % 4;
+                a = x + dx[d], b = y + dy[d];
+            }
+            x = a, y = b;
         }
         return res;
     }
-}
+};
 ```
 

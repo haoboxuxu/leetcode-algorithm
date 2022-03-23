@@ -26,17 +26,15 @@
 class Solution {
 public:
     vector<int> singleNumbers(vector<int>& nums) {
-        int x = 0, y = 0, n = 0, m = 1;
-        for (auto num : nums) n ^= num;
-        
-        while ((n & m) == 0) m <<= 1;
-        
+        int sum = 0;
+        for (auto num : nums) sum ^= num;
+        int k = 0;
+        while (!(sum >> k & 1)) k++;
+        int x = 0;
         for (auto num : nums) {
-            if (num & m) x ^= num;
-            else y ^= num;
+            if (num >> k & 1) x ^= num;
         }
-        
-        return vector<int>{x, y};
+        return {x, sum ^ x};
     }
 };
 ```

@@ -1,14 +1,17 @@
 class Solution {
 public:
+    vector<string> res;
     vector<string> generateParenthesis(int n) {
-        vector<string> res;
-        dfs(res, n, n, "");
+        dfs(n, 0, 0, "");
         return res;
     }
-    void dfs(vector<string>& res, int l, int r, string s) {
-        if (l < 0 || r < 0 || l > r) return;
-        if (l == 0 && r == 0) res.push_back(s);
-        dfs(res, l-1, r, s+"(");
-        dfs(res, l, r-1, s+"(");
+
+    void dfs(int n, int lc, int rc, string path) {
+        if (lc == n && rc == n) {
+            res.push_back(path);
+            return;
+        }
+        if (lc < n) dfs(n, lc + 1, rc, path + '(');
+        if (rc < n && lc > rc) dfs(n, lc, rc + 1, path + ')');
     }
 };

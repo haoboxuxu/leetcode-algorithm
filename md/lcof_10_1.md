@@ -32,12 +32,11 @@ F(N) = F(N - 1) + F(N - 2), 其中 N > 1.
 class Solution {
 public:
     int fib(int n) {
-        int mod = (int)1e9+7;
         int a = 0, b = 1;
-        while (n--) {
+        int mod = 1e9+7;
+        for (int i = 0; i < n; i++) {
             int c = a + b;
-            a = b % mod;
-            b = c % mod;
+            a = b % mod, b = c % mod;
         }
         return a % mod;
     }

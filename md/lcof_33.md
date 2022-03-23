@@ -29,26 +29,23 @@
 链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
-```java
+```c++
 class Solution {
-    public boolean verifyPostorder(int[] postorder) {
-        return dfs(postorder, 0, postorder.length - 1);
+public:
+    bool verifyPostorder(vector<int>& postorder) {
+        return dfs(postorder, 0, postorder.size() - 1);
     }
 
-    public boolean dfs(int[] postorder, int i, int j) {
-        if (i >= j) {
-            return true;
+    bool dfs(vector<int>& postorder, int l, int r) {
+        if (l >= r) return true;
+        int k = l;
+        int root = postorder[r];
+        while (k < r && postorder[k] < root) k++;
+        for (int i = k; i < r; i++) {
+            if (postorder[i] < root) return false;
         }
-        int p = i;
-        while (postorder[p] < postorder[j]) {
-            p++;
-        }
-        int m = p;
-        while (postorder[p] > postorder[j]) {
-            p++;
-        }
-        return p == j && dfs(postorder, i, m-1) && dfs(postorder, m, j-1);
+        return dfs(postorder, l, k - 1) && dfs(postorder, k, r - 1);
     }
-}
+};
 ```
 

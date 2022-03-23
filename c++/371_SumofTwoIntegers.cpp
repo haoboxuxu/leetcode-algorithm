@@ -1,9 +1,11 @@
 class Solution {
 public:
     int getSum(int a, int b) {
-        if (a == 0) return b;
-        if (b == 0) return a;
-        int sum = a ^ b, carry = (unsigned)(a & b) << 1;
-        return getSum(sum, carry);
+        while (b) {
+            int sum = a ^ b;
+            int carry = (unsigned int)(a & b) << 1;
+            a = sum, b = carry;
+        }
+        return a;
     }
 };

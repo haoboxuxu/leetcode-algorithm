@@ -24,16 +24,13 @@
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 ```cpp
-//c++
 class Solution {
 public:
     bool findNumberIn2DArray(vector<vector<int>>& matrix, int target) {
-        if (matrix.size() == 0 || matrix[0].size() == 0) {
-            return false;
-        }
-        int row = (int)matrix.size(), col = (int)matrix[0].size();
-        int i = 0, j = col - 1;
-        while (i < row && j >= 0) {
+        if (matrix.empty()) return false;
+        int n = matrix.size(), m = matrix[0].size();
+        int i = 0, j = m - 1;
+        while (i < n && j >= 0) {
             int num = matrix[i][j];
             if (num == target) return true;
             else if (num > target) j--;
@@ -42,27 +39,5 @@ public:
         return false;
     }
 };
-//java
-class Solution {
-    public boolean findNumberIn2DArray(int[][] matrix, int target) {
-        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
-            return false;
-        }
-        int n = matrix.length;
-        int m = matrix[0].length;
-        int i = 0, j = m - 1;
-        while (i < n && j >= 0) {
-            int num = matrix[i][j];
-            if (num == target) {
-                return true;
-            }else if (num > target) {
-                j--;
-            }else {
-                i++;
-            }
-        }
-        return false;
-    }
-}
 ```
 

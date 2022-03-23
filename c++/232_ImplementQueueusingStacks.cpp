@@ -2,7 +2,6 @@ class MyQueue {
 public:
     stack<int> a, b;
     MyQueue() {
-
     }
     
     void push(int x) {
@@ -14,9 +13,9 @@ public:
             b.push(a.top());
             a.pop();
         }
-        int t = a.top();
+        auto t = a.top();
         a.pop();
-        while (!b.empty()) {
+        while (b.size()) {
             a.push(b.top());
             b.pop();
         }
@@ -28,8 +27,8 @@ public:
             b.push(a.top());
             a.pop();
         }
-        int t = a.top();
-        while (!b.empty()) {
+        auto t = a.top();
+        while (b.size()) {
             a.push(b.top());
             b.pop();
         }

@@ -35,36 +35,28 @@
 class Solution {
 public:
     bool exist(vector<vector<char>>& board, string word) {
-        row = (int)board.size();
-        col = (int)board[0].size();
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                if (dfs(board, word, i, j, 0)) {
-                    return true;
-                }
+        for (int i = 0; i < board.size(); i++) {
+            for (int j = 0; j < board[0].size(); j++) {
+                if (dfs(board, word, 0, i, j)) return true;
             }
         }
         return false;
     }
     
-private:
-    int row, col;
+    int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
     
-    bool dfs(vector<vector<char>>& board, string word, int i, int j, int k) {
-        if (i >= row || i < 0 || j >= col || j < 0 || board[i][j] != word[k]) {
-            return false;
+    bool dfs(vector<vector<char>>& board, string& word, int u, int x, int y) {
+        if (board[x][y] != word[u]) return false;
+        if (word.size() - 1 == u) return true;
+        char c = board[x][y];
+        board[x][y] = '.';
+        for (int i = 0; i < 4; i++) {
+            int a = x + dx[i], b = y + dy[i];
+            if (a < 0 || a >= board.size() || b < 0 || b >= board[0].size() || board[a][b] == '.') continue;
+            if (dfs(board, word, u+1, a, b)) return true;
         }
-        if (k == word.length() - 1) return true;
-        
-        board[i][j] = '\0'; //visited
-        
-        bool res = dfs(board, word, i+1, j, k+1) ||
-                   dfs(board, word, i-1, j, k+1) ||
-                   dfs(board, word, i, j+1, k+1) ||
-                   dfs(board, word, i, j-1, k+1);
-        
-        board[i][j] = word[k];
-        return res;
+        board[x][y] = c;
+        return false;
     }
 };
 ```

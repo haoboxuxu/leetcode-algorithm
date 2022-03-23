@@ -15,27 +15,15 @@
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 ```java
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
 class Solution {
-    public ListNode getKthFromEnd(ListNode head, int k) {
-        ListNode slow = head;
-        ListNode fast = head;
-        for (int i = 0; i < k; i++) {
-            fast = fast.next;
-        }
-        while (fast != null) {
-            slow = slow.next;
-            fast = fast.next;
-        }
-        return slow;
+public:
+    ListNode* getKthFromEnd(ListNode* head, int k) {
+        int n = 0;
+        for (auto p = head; p; p = p->next) n++;
+        auto p = head;
+        for (int i = 0; i < n - k; i++) p = p->next;
+        return p;
     }
-}
+};
 ```
 

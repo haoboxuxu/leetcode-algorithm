@@ -22,22 +22,20 @@
 链接：https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
-```jav
+```c++
 class Solution {
-    public int maxSubArray(int[] nums) {
-        int[] dp = new int[nums.length];
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> dp(2);
         dp[0] = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            dp[i] = Math.max(nums[i], dp[i-1] + nums[i]);
-        }
         int res = dp[0];
-        for (int i = 1; i < nums.length; i++) {
-            if (res < dp[i]) {
-                res = dp[i];
-            }
+        for (int i = 1; i < n; i++) {
+            dp[i & 1] = max(dp[i-1 & 1] + nums[i], nums[i]);
+            res = max(res, dp[i & 1]);
         }
         return res;
     }
-}
+};`
 ```
 

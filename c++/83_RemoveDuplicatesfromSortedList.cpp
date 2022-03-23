@@ -5,8 +5,7 @@ public:
         auto cur = head;
         for (auto p = head->next; p; p = p->next) {
             if (p->val != cur->val) {
-                cur->next = p;
-                cur = cur->next;
+                cur = cur->next = p;
             }
         }
         cur->next = nullptr;

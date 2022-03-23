@@ -24,45 +24,30 @@ minStack.min();   --> 返回 -2.
 链接：https://leetcode-cn.com/problems/bao-han-minhan-shu-de-zhan-lcof
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
-```java
+```c++
 class MinStack {
-    Stack<Integer> A, B;
-
-    /** initialize your data structure here. */
-    public MinStack() {
-        A = new Stack<>();
-        B = new Stack<>();
+public:
+    stack<int> a, b;
+    MinStack() {
     }
-
-    public void push(int x) {
-        A.push(x);
-        if (B.empty() || B.peek() >= x) {
-            B.push(x);
-        }
+    
+    void push(int x) {
+        a.push(x);
+        if (b.empty() || b.top() >= x) b.push(x);
     }
-
-    public void pop() {
-        if (A.pop().equals(B.peek())) {
-            B.pop();
-        }
+    
+    void pop() {
+        if (b.size() && a.top() == b.top()) b.pop();
+        a.pop();
     }
-
-    public int top() {
-        return A.peek();
+    
+    int top() {
+        return a.top();
     }
-
-    public int min() {
-        return B.peek();
+    
+    int min() {
+        return b.top();
     }
-}
-
-/**
- * Your MinStack object will be instantiated and called as such:
- * MinStack obj = new MinStack();
- * obj.push(x);
- * obj.pop();
- * int param_3 = obj.top();
- * int param_4 = obj.min();
- */
+};
 ```
 
