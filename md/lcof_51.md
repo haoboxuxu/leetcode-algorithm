@@ -29,22 +29,22 @@ public:
 
     int merge(vector<int>& nums, int l, int r) {
         if (l >= r) return 0;
-        int mid = (l + r) >> 1;
+        int mid = l + r >> 1;
         int res = merge(nums, l, mid) + merge(nums, mid + 1, r);
         int i = l, j = mid + 1;
-        vector<int> t;
+        vector<int> tmp;
         while (i <= mid && j <= r) {
-            if (nums[i] > nums[j]) {
-                t.push_back(nums[i++]);
-                res += r - j + 1;
+            if (nums[i] <= nums[j]) {
+                tmp.push_back(nums[i++]);
             } else {
-                t.push_back(nums[j++]);
+                tmp.push_back(nums[j++]);
+                res += mid - i + 1;
             }
         }
-        while (i <= mid) t.push_back(nums[i++]);
-        while (j <= r) t.push_back(nums[j++]);
+        while (i <= mid) tmp.push_back(nums[i++]);
+        while (j <= r) tmp.push_back(nums[j++]);
         int k = l;
-        for (auto x : t) nums[k++] = x;
+        for (auto x : tmp) nums[k++] = x;
         return res;
     }
 };

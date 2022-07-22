@@ -24,12 +24,12 @@
 ```c++
 class Solution {
 public:
-    vector<vector<bool>> vis;
-    int m, n, k, res;
     int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
-    int movingCount(int m, int n, int k) {
+    int res, m, n, k;
+    vector<vector<bool>> vis;
+    int movingCount(int _m, int _n, int _k) {
+        m = _m, n = _n, k = _k;
         vis = vector<vector<bool>>(m, vector<bool>(n));
-        this->m = m, this->n = n, this->k = k, res = 0;
         dfs(0, 0);
         return res;
     }
