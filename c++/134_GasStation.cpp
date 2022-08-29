@@ -5,7 +5,7 @@ public:
         for (int i = 0, j; i < n;) {
             int left = 0;
             for (j = 0; j < n; j++) {
-                int k = (i+j) % n;
+                int k = (i + j) % n;
                 left += gas[k] - cost[k];
                 if (left < 0) break;
             }

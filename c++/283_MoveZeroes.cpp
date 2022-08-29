@@ -7,6 +7,6 @@ public:
                 nums[i++] = nums[j];
             }
         }
-        for (; i < nums.size(); i++) nums[i] = 0;
+        while (i < nums.size()) nums[i++] = 0;
     }
 };

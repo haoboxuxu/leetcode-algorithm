@@ -13,16 +13,13 @@ public:
 class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) {
-        ListNode* dummy = new ListNode(0, head);
-        ListNode* t = dummy;
-        while (t->next != nullptr) {
-            if (t->next->val == val) {
-                t->next = t->next->next;
-            } else {
-                t = t->next;
-            }
+        auto dummy = new ListNode(-1);
+        dummy->next = head;
+        for (auto p = dummy; p; p = p->next) {
+            auto q = p->next;;
+            while (q && q->val == val) q = q->next;
+            p->next = q;
         }
-        
         return dummy->next;
     }
 };

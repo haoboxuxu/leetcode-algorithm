@@ -42,7 +42,7 @@ public:
             while (j < s.size() && s[j] != ' ') s[t++] = s[j++];
             reverse(s.begin() + k, s.begin() + t);
             s[t++] = ' ';
-            k = t, i = j;
+            i = j, k = t;
         }
         if (k) k--;
         s.erase(s.begin() + k, s.end());

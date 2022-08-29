@@ -9,7 +9,7 @@ public:
 
     void quicksort(vector<int>& arr, int l, int r, int k) {
         if (l >= r) return;
-        int i = l - 1, j = r + 1, x = arr[l+r>>1];
+        int i = l - 1, j = r + 1, x = arr[l + r >> 1];
         while (i < j) {
             do i++; while (arr[i] < x);
             do j--; while (arr[j] > x);
@@ -17,6 +17,6 @@ public:
         }
         int len = j - l + 1;
         if (k <= len) quicksort(arr, l, j, k);
-        else quicksort(arr, j+1, r, k-len);
+        else quicksort(arr, j + 1, r, k - len);
     }
 };
