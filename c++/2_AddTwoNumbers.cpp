@@ -12,11 +12,9 @@ public:
                 carry += l2->val;
                 l2 = l2->next;
             }
-            cur->next = new ListNode(carry % 10);
-            cur = cur->next;
+            cur = cur->next = new ListNode(carry % 10);
             carry /= 10;
         }
-        
         return dummy->next;
     }
 };

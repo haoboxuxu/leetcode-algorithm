@@ -1,3 +1,4 @@
+//1
 class Solution {
 public:
     vector<vector<int>> res;
@@ -25,4 +26,34 @@ public:
         }
     }
 };
+//2
+class Solution {
+public:
+    vector<vector<int>> res;
+    vector<int> path;
+    vector<bool> vis;
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        path = vector<int>(n);
+        vis = vector<bool>(n);
+        dfs(nums, 0);
+        return res;
+    }
 
+    void dfs(vector<int>& nums, int u) {
+        if (u == nums.size()) {
+            res.push_back(path);
+            return;
+        }
+        for (int i = 0; i < nums.size(); i++) {
+            if (!vis[i]) {
+                if (i && nums[i] == nums[i - 1] && !vis[i - 1]) continue;
+                path[u] = nums[i];
+                vis[i] = true;
+                dfs(nums, u + 1);
+                vis[i] = false;
+            }
+        }
+    }
+};
