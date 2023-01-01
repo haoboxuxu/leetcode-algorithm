@@ -11,7 +11,6 @@ public:
                 l2 = l2->next;
             }
         }
-
         if (l1) cur->next = l1;
         if (l2) cur->next = l2;
         return dummy->next;

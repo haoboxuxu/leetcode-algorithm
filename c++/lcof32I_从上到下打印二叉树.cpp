@@ -9,8 +9,8 @@ public:
             int size = q.size();
             for (int i = 0; i < size; i++) {
                 auto t = q.front();
-                res.push_back(t->val);
                 q.pop();
+                res.push_back(t->val);
                 if (t->left) q.push(t->left);
                 if (t->right) q.push(t->right);
             }

@@ -47,10 +47,10 @@ public:
         return dfs(root->left, root->right);
     }
 
-    bool dfs(TreeNode* p, TreeNode* q) {
-        if (!p && !q) return true;
-        if (!p || !q || p->val != q->val) return false;
-        return dfs(p->left, q->right) && dfs(p->right, q->left);
+    bool dfs(TreeNode* a, TreeNode* b) {
+        if (!a && !b) return true;
+        if (!a || !b || a->val != b->val) return false;
+        return dfs(a->left, b->right) && dfs(a->right, b->left);
     }
 };
 ```
